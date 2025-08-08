@@ -21,7 +21,7 @@
     }
 
     .header {
-      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      background: radial-gradient(circle, #ffe7c6 0%, #fbe9d4 100%);
       padding: 3rem 1rem 2rem;
       text-align: center;
       position: relative;
@@ -29,20 +29,31 @@
     }
 
     .header h1 {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       font-weight: bold;
-      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
     }
 
     .brand-name {
-      font-size: 2.2rem;
-      background: linear-gradient(to right, var(--primary), #e1b87d);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
+      font-size: 3rem;
+      font-weight: 900;
       font-family: 'Georgia', serif;
-      margin-bottom: 0.5rem;
-      text-shadow: 1px 1px rgba(0,0,0,0.05);
+      color: #a05b3b;
+      position: relative;
+      display: inline-block;
+    }
+
+    .brand-name::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -8px;
+      width: 60%;
+      height: 4px;
+      background-color: #e1b87d;
+      border-radius: 2px;
     }
 
     .header p {
@@ -111,10 +122,10 @@
 
     @media (max-width: 576px) {
       .header h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
       }
       .brand-name {
-        font-size: 1.6rem;
+        font-size: 2rem;
       }
     }
   </style>
