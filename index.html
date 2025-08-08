@@ -21,51 +21,41 @@
     }
 
     .header {
-      background: radial-gradient(circle, #ffe7c6 0%, #fbe9d4 100%);
-      padding: 3rem 1rem 2rem;
+      background: linear-gradient(120deg, #fbe9d4 0%, #fff3e0 100%);
+      padding: 3rem 1rem 2.5rem;
       text-align: center;
-      position: relative;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      position: relative;
+      border-bottom: 4px solid var(--primary);
     }
 
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-    }
-
-    .brand-name {
+    .header .brand-name {
       font-size: 3rem;
       font-weight: 900;
       font-family: 'Georgia', serif;
-      color: #a05b3b;
-      position: relative;
-      display: inline-block;
+      color: var(--primary);
+      background: -webkit-linear-gradient(#a05b3b, #d48955);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInDown 1s ease-out;
     }
 
-    .brand-name::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: -8px;
-      width: 60%;
-      height: 4px;
-      background-color: #e1b87d;
-      border-radius: 2px;
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .header p {
       font-size: 1.1rem;
       color: var(--text-light);
-      margin-bottom: 0.3rem;
+      margin-top: 0.5rem;
     }
 
     .whatsapp-header {
       font-size: 1.2rem;
       color: #25D366;
       font-weight: bold;
+      margin-top: 0.5rem;
     }
 
     .product-card {
@@ -121,10 +111,7 @@
     }
 
     @media (max-width: 576px) {
-      .header h1 {
-        font-size: 1.6rem;
-      }
-      .brand-name {
+      .header .brand-name {
         font-size: 2rem;
       }
     }
@@ -132,8 +119,8 @@
 </head>
 <body>
   <header class="header">
-    <h1>Catálogo de Productos</h1>
     <div class="brand-name">Sabores S&C</div>
+    <p>Catálogo de Productos</p>
     <p>Distribuido y empacado por Sabores S&C</p>
     <p class="whatsapp-header">
       <i class="bi bi-whatsapp"></i> WhatsApp: 50138102
