@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Catálogo Sabores S&C</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #fdf7f0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .header {
+      background-color: #a05b3b; /* Color que combina con el logo */
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header img {
+      max-width: 220px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    .product-card {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .product-card:hover {
+      transform: scale(1.02);
+    }
+    .footer {
+      background-color: #a05b3b;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Encabezado con logo centrado -->
+  <div class="header">
+    <img src="img/logo.png" alt="Logo Sabores S&C">
+    <h1>Catálogo de Productos</h1>
+    <h3>Sabores S&C</h3>
+    <p>Distribuido y empacado por Sabores S&C - Tel: 50138102</p>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row g-4">
+
+      <!-- Producto Jamaica -->
+      <div class="col-md-3">
+        <div class="card product-card">
+          <img src="img/jamaica.png" class="card-img-top" alt="Flor de Jamaica">
+          <div class="card-body">
+            <h5 class="card-title">Flor de Jamaica 454g</h5>
+            <p class="card-text">Flor natural deshidratada, ideal para bebidas y cocina.</p>
+            <p class="text-success fw-bold">Q25.00</p>
+            <a href="https://wa.me/50250138102" class="btn btn-success">Solicitar vía WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto Bicarbonato -->
+      <div class="col-md-3">
+        <div class="card product-card">
+          <img src="img/bicarbonato.png" class="card-img-top" alt="Bicarbonato">
+          <div class="card-body">
+            <h5 class="card-title">Bicarbonato 227g</h5>
+            <p class="card-text">Para cocina, limpieza y usos múltiples.</p>
+            <p class="text-success fw-bold">Q12.00</p>
+            <a href="https://wa.me/50250138102" class="btn btn-success">Solicitar vía WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto Miga -->
+      <div class="col-md-3">
+        <div class="card product-card">
+          <img src="img/miga.png" class="card-img-top" alt="Miga de Pan">
+          <div class="card-body">
+            <h5 class="card-title">Miga de Pan 250g</h5>
+            <p class="card-text">Ideal para empanizados y recetas caseras.</p>
+            <p class="text-success fw-bold">Q10.00</p>
+            <a href="https://wa.me/50250138102" class="btn btn-success">Solicitar vía WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto Tajín -->
+      <div class="col-md-3">
+        <div class="card product-card">
+          <img src="img/tajin.png" class="card-img-top" alt="Tajín Artesanal">
+          <div class="card-body">
+            <h5 class="card-title">Tajín Artesanal 100g</h5>
+            <p class="card-text">Condimento con chile, limón y sal. 100% artesanal.</p>
+            <p class="text-success fw-bold">Q15.00</p>
+            <a href="https://wa.me/50250138102" class="btn btn-success">Solicitar vía WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2025 Sabores S&C - Todos los derechos reservados
+  </div>
+
+</body>
+</html>
