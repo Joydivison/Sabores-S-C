@@ -9,55 +9,63 @@
   <style>
     :root {
       --primary: #a05b3b;
-      --accent: #f3e2d3;
       --text-dark: #3d2c1b;
-      --text-light: #6c6c6c;
     }
-
     body {
       background-color: #fdfaf7;
       font-family: 'Segoe UI', sans-serif;
       color: var(--text-dark);
     }
-
     .header {
-      background: linear-gradient(120deg, #fbe9d4 0%, #fff3e0 100%);
-      padding: 3rem 1rem 2.5rem;
+      background: linear-gradient(180deg, #fff, #f8f0ec);
+      padding: 3rem 1rem;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      position: relative;
-      border-bottom: 4px solid var(--primary);
+      color: var(--text-dark);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-
-    .header .brand-name {
+    .header img {
+      max-height: 220px;
+      margin-bottom: 1rem;
+      border-radius: 50%;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      animation: fadeInDown 1s ease-in-out;
+    }
+    .brand-name {
       font-size: 3rem;
       font-weight: 900;
       font-family: 'Georgia', serif;
-      color: var(--primary);
-      background: -webkit-linear-gradient(#a05b3b, #d48955);
+      letter-spacing: 2px;
+      animation: fadeInUp 1s ease-in-out;
+      background: linear-gradient(90deg, #a05b3b, #d19173);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: fadeInDown 1s ease-out;
     }
-
-    @keyframes fadeInDown {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    .slogan {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #7b4b34;
+      margin-top: -5px;
+      margin-bottom: 10px;
     }
-
-    .header p {
-      font-size: 1.1rem;
-      color: var(--text-light);
-      margin-top: 0.5rem;
-    }
-
     .whatsapp-header {
       font-size: 1.2rem;
-      color: #25D366;
       font-weight: bold;
       margin-top: 0.5rem;
+      background-color: #25D366;
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 25px;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: background 0.3s ease;
+      text-decoration: none;
     }
-
+    .whatsapp-header:hover {
+      background-color: #1ebe5c;
+      color: #fff;
+    }
     .product-card {
       border: none;
       border-radius: 16px;
@@ -65,28 +73,10 @@
       background: #fff;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     .product-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 8px 30px rgba(0,0,0,0.1);
     }
-
-    .product-card img {
-      border-bottom: 1px solid #f1e0cd;
-      padding: 10px;
-      background-color: #fdf8f4;
-    }
-
-    .card-body h5 {
-      font-weight: 700;
-      color: var(--text-dark);
-    }
-
-    .card-text {
-      font-size: 0.95rem;
-      color: var(--text-light);
-    }
-
     .btn-whatsapp {
       background-color: #25D366;
       border: none;
@@ -96,11 +86,9 @@
       align-items: center;
       justify-content: center;
     }
-
     .btn-whatsapp i {
       margin-right: 5px;
     }
-
     .footer {
       background-color: var(--primary);
       color: white;
@@ -109,27 +97,33 @@
       margin-top: 4rem;
       font-size: 0.95rem;
     }
-
+    @keyframes fadeInDown {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeInUp {
+      0% {opacity: 0; transform: translateY(20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
     @media (max-width: 576px) {
-      .header .brand-name {
-        font-size: 2rem;
-      }
+      .brand-name {font-size: 2.4rem;}
+      .header img {max-height: 160px;}
     }
   </style>
 </head>
 <body>
   <header class="header">
+    <img src="img/logo.png" alt="Logo Sabores S&C">
     <div class="brand-name">Sabores S&C</div>
-    <p>Catálogo de Productos</p>
+    <div class="slogan">"El auténtico sabor de nuestra tierra"</div>
     <p>Distribuido y empacado por Sabores S&C</p>
-    <p class="whatsapp-header">
+    <a href="https://wa.me/50250138102" target="_blank" class="whatsapp-header">
       <i class="bi bi-whatsapp"></i> WhatsApp: 50138102
-    </p>
+    </a>
   </header>
 
   <main class="container py-5">
     <div class="row g-4 justify-content-center">
-      <!-- Productos -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
         <div class="card product-card flex-fill">
           <img src="img/jamaica.png" class="card-img-top" alt="Flor de Jamaica">
@@ -137,13 +131,10 @@
             <h5 class="card-title">Flor de Jamaica 454g</h5>
             <p class="card-text">Flor natural deshidratada, ideal para bebidas y cocina.</p>
             <p class="text-success fw-bold">Q25.00</p>
-            <a href="https://wa.me/50250138102" target="_blank" class="btn btn-whatsapp">
-              <i class="bi bi-whatsapp"></i> Pedir por WhatsApp
-            </a>
+            <a href="https://wa.me/50250138102" target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
           </div>
         </div>
       </div>
-
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
         <div class="card product-card flex-fill">
           <img src="img/bicarbonato.png" class="card-img-top" alt="Bicarbonato">
@@ -151,13 +142,10 @@
             <h5 class="card-title">Bicarbonato 227g</h5>
             <p class="card-text">Para cocina, limpieza y usos múltiples.</p>
             <p class="text-success fw-bold">Q12.00</p>
-            <a href="https://wa.me/50250138102" target="_blank" class="btn btn-whatsapp">
-              <i class="bi bi-whatsapp"></i> Pedir por WhatsApp
-            </a>
+            <a href="https://wa.me/50250138102" target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
           </div>
         </div>
       </div>
-
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
         <div class="card product-card flex-fill">
           <img src="img/miga.png" class="card-img-top" alt="Miga de Pan">
@@ -165,13 +153,10 @@
             <h5 class="card-title">Miga de Pan 250g</h5>
             <p class="card-text">Ideal para empanizados y recetas caseras.</p>
             <p class="text-success fw-bold">Q10.00</p>
-            <a href="https://wa.me/50250138102" target="_blank" class="btn btn-whatsapp">
-              <i class="bi bi-whatsapp"></i> Pedir por WhatsApp
-            </a>
+            <a href="https://wa.me/50250138102" target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
           </div>
         </div>
       </div>
-
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
         <div class="card product-card flex-fill">
           <img src="img/tajin.png" class="card-img-top" alt="Tajín Artesanal">
@@ -179,17 +164,15 @@
             <h5 class="card-title">Tajín Artesanal 100g</h5>
             <p class="card-text">Condimento con chile, limón y sal. 100% artesanal.</p>
             <p class="text-success fw-bold">Q15.00</p>
-            <a href="https://wa.me/50250138102" target="_blank" class="btn btn-whatsapp">
-              <i class="bi bi-whatsapp"></i> Pedir por WhatsApp
-            </a>
+            <a href="https://wa.me/50250138102" target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
           </div>
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="footer">
-    © 2025 Sabores S&C - Todos los derechos reservados
-  </footer>
+  <footer class="footer">© 2025 Sabores S&C - Todos los derechos reservados</footer>
 </body>
 </html>
+
+
