@@ -7,15 +7,12 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <style>
-  :root{
-    --primary:#a05b3b; --text:#3d2c1b; --bg:#fdfaf7; --pill:#ead7cd;
-    --price-size:.95rem;   /* precio más pequeño */
-    --uom-size:1.05rem;    /* tamaño de unidad (lb / g) */
-  }
+  :root{ --primary:#a05b3b; --text:#3d2c1b; --bg:#fdfaf7; --pill:#ead7cd;
+         --price-size:.95rem; --uom-size:1.05rem; }
   *{box-sizing:border-box}
   body{background:var(--bg);font-family:'Segoe UI',sans-serif;color:var(--text)}
 
-  /* Header (UI) */
+  /* Header */
   .header{padding:3rem 1rem 2rem;text-align:center;background:radial-gradient(ellipse at top,#fff 0,#fff 50%,#f8f0ec 100%);box-shadow:0 4px 10px rgba(0,0,0,.06)}
   .header img{max-height:200px;margin-bottom:1rem;border-radius:50%;padding:12px;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.15)}
   .brand{font:900 2.8rem/1 Georgia,serif;background:linear-gradient(90deg,#a05b3b,#d19173);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -29,35 +26,49 @@
   .chip{border:1px solid #ead7cd;background:#fff;color:#7b4b34;border-radius:999px;padding:.4rem .9rem;font-weight:700;cursor:pointer}
   .chip.active{background:#a05b3b;color:#fff;border-color:#a05b3b}
 
-  /* Cards (UI) */
+  /* Cards */
   .product{display:flex}
   .product-card{display:flex;flex-direction:column;height:100%;width:100%;
     border:none;border-radius:18px;background:#fff;box-shadow:0 6px 22px rgba(0,0,0,.08);transition:.25s;cursor:zoom-in}
   .product-card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,.12)}
   .img-wrap{height:260px;display:flex;align-items:center;justify-content:center;padding:14px;background:#fff}
   .img-wrap img{max-width:100%;max-height:100%;height:100%;object-fit:contain}
-  .card-body{display:grid;grid-template-rows:auto auto 1fr auto;gap:.6rem}
+  .card-body{display:grid;grid-template-rows:auto auto auto 1fr auto;gap:.55rem}
 
-  .price-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem;margin-bottom:.2rem}
+  .price-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.6rem}
   .price-pill{outline:1px solid var(--pill);background:linear-gradient(180deg,#fff 0,#fff7f1 100%);
     border-radius:12px;padding:.55rem .7rem;box-shadow:0 4px 12px rgba(0,0,0,.06);min-height:74px;
     display:flex;flex-direction:column;align-items:center;justify-content:center}
   .uom{font-weight:800;opacity:.9;font-size:var(--uom-size)}
   .amount{font-weight:400;font-size:var(--price-size);display:flex;gap:.35rem;align-items:center}
+  .badge-public{font-size:.8rem;color:#7b4b34}
 
+  .btn-wholesale{--bs-btn-color:#a05b3b;--bs-btn-border-color:#a05b3b;--bs-btn-hover-bg:#a05b3b;--bs-btn-hover-border-color:#a05b3b}
   .btn-whatsapp{background:#25D366;border:none;width:100%;font-weight:bold;display:flex;align-items:center;justify-content:center;gap:.35rem;cursor:auto}
 
-  /* Info */
+  /* Mayorista compacto */
+  .wh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem}
+  .wh-pill{outline:1px solid var(--pill);background:linear-gradient(180deg,#fff 0,#fff7f1 100%);
+    border-radius:12px;padding:.55rem .7rem;box-shadow:0 4px 12px rgba(0,0,0,.06);min-height:74px;
+    display:flex;flex-direction:column;justify-content:center}
+  .wh-row{display:flex;justify-content:space-between;gap:.5rem;font-size:var(--price-size)}
+  .wh-row + .wh-row{margin-top:.15rem}
+  .wh-lab{font-weight:600;opacity:.85}
+  .wh-val{font-weight:400}
+
+  /* Mostrar/ocultar mayorista (sin Bootstrap collapse) */
+  .wh-container{display:none}
+  .wh-container.open{display:block}
+
   .about{background:#fff;border-radius:18px;padding:2rem;box-shadow:0 6px 22px rgba(0,0,0,.06)}
   .footer{background:var(--primary);color:#fff;text-align:center;padding:1rem;margin-top:2rem}
 
   .info-card{background:#fff;border:1px solid #ead7cd;border-radius:16px;padding:1rem;box-shadow:0 6px 20px rgba(0,0,0,.05)}
   .info-card .title{font-weight:700}
 
-  /* Modal imagen */
   .modal-img{width:100%;max-height:70vh;object-fit:contain}
 
-  /* --- SECCIÓN PDF SIMPLE (oculta en pantalla) --- */
+  /* PDF */
   #catalogo_pdf{display:none}
   .pdf-header{text-align:center;padding:1.2rem .5rem}
   .pdf-brand{font:900 2rem/1 Georgia,serif;color:#a05b3b}
@@ -69,14 +80,9 @@
   .pdf-pill{border:1px solid #ead7cd;border-radius:10px;padding:.35rem .55rem;background:#fff7f1;font-weight:600}
   .pdf-pill .q{font-weight:400;margin-left:.25rem}
 
-  /* Print: mostrar sólo el PDF simple */
-  @media print{
-    #catalogo_ui{display:none!important}
-    #catalogo_pdf{display:block!important}
-    body{background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
-  }
+  @media print{ #catalogo_ui{display:none!important} #catalogo_pdf{display:block!important}
+    body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
 
-  /* Afinar experiencia en móviles muy pequeños */
   @media (max-width: 400px){
     .brand{font-size:1.9rem}
     .img-wrap{height:180px}
@@ -85,25 +91,17 @@
     .uom{font-size:1rem}
     .chip{padding:.5rem 1rem}
   }
-  /* Modal más cómodo en móviles */
   @media (max-width: 576px){
     .modal-dialog{margin:.75rem}
-  }
-  /* Sticky buscador + chips en móvil */
-  @media (max-width: 576px){
-    .header .search-wrap,
-    .header #chips{
-      position: sticky; top: 0; z-index: 1020;
-      background: radial-gradient(ellipse at top,#fff 0,#fff 50%,#f8f0ec 100%);
-      padding-bottom:.5rem;
-    }
-    .header #chips{ top: 64px; } /* bajo el buscador */
+    .header .search-wrap, .header #chips{position:sticky; top:0; z-index:1020;
+      background:radial-gradient(ellipse at top,#fff 0,#fff 50%,#f8f0ec 100%); padding-bottom:.5rem}
+    .header #chips{ top:64px }
   }
 </style>
 </head>
 <body>
 
-<!-- ========= UI NORMAL (pantalla) ========= -->
+<!-- ========= UI ========= -->
 <div id="catalogo_ui">
 <header class="header">
   <img src="img/logo.png" alt="Logo Sabores S&C">
@@ -138,16 +136,20 @@
 
     <!-- Jamaica -->
     <div class="col-12 col-sm-6 col-md-4 col-lg-3 product"
-         data-category="jamaica" data-name="Flor de Jamaica"
-         data-tags="jamaica flor bebida cocina 1lb 1/2lb 454g 227g">
+         data-category="jamaica" data-key="jamaica" data-name="Flor de Jamaica"
+         data-tags="jamaica flor bebida cocina 454g 227g">
       <div class="card product-card">
         <div class="img-wrap"><img src="img/jamaica.png" alt="Flor de Jamaica" loading="lazy"></div>
         <div class="card-body">
           <h5 class="card-title">Flor de Jamaica</h5>
-          <div class="price-list">
-            <div class="price-pill"><div class="uom">1 lb</div><div class="amount"><i class="bi bi-cash-coin"></i> 48.00</div></div>
-            <div class="price-pill"><div class="uom">½ lb</div><div class="amount"><i class="bi bi-cash-coin"></i> 24.00</div></div>
-          </div>
+          <div class="badge-public">Precio por presentación (TIENDA)</div>
+          <div class="price-list"></div>
+
+          <button class="btn btn-outline-primary btn-sm btn-wholesale mt-1" data-target="#wh-jamaica" aria-expanded="false">
+            <i class="bi bi-bag-check"></i> Precio mayorista
+          </button>
+          <div id="wh-jamaica" class="wh-container pt-2"></div>
+
           <p class="card-text">Flor natural deshidratada, ideal para bebidas y cocina.</p>
           <a href="https://wa.me/50250138102?text=Hola%20Sabores%20S%26C,%20quiero%20ordenar%20Flor%20de%20Jamaica." target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
         </div>
@@ -156,35 +158,42 @@
 
     <!-- Bicarbonato -->
     <div class="col-12 col-sm-6 col-md-4 col-lg-3 product"
-         data-category="bicarbonato" data-name="Bicarbonato"
-         data-tags="bicarbonato cocina limpieza 1lb 1/2lb 50g 454g 227g">
+         data-category="bicarbonato" data-key="bicarbonato" data-name="Bicarbonato"
+         data-tags="bicarbonato cocina limpieza 454g 227g 50g">
       <div class="card product-card">
         <div class="img-wrap"><img src="img/bicarbonato.png" alt="Bicarbonato" loading="lazy"></div>
         <div class="card-body">
           <h5 class="card-title">Bicarbonato</h5>
-          <div class="price-list">
-            <div class="price-pill"><div class="uom">1 lb</div><div class="amount"><i class="bi bi-cash-coin"></i> 14.00</div></div>
-            <div class="price-pill"><div class="uom">½ lb</div><div class="amount"><i class="bi bi-cash-coin"></i> 10.00</div></div>
-            <div class="price-pill"><div class="uom">50 g</div><div class="amount"><i class="bi bi-cash-coin"></i> 4.00</div></div>
-          </div>
+          <div class="badge-public">Precio por presentación (TIENDA)</div>
+          <div class="price-list"></div>
+
+          <button class="btn btn-outline-primary btn-sm btn-wholesale mt-1" data-target="#wh-bicarbonato" aria-expanded="false">
+            <i class="bi bi-bag-check"></i> Precio mayorista
+          </button>
+          <div id="wh-bicarbonato" class="wh-container pt-2"></div>
+
           <p class="card-text">Para cocina, limpieza y usos múltiples.</p>
           <a href="https://wa.me/50250138102?text=Hola%20Sabores%20S%26C,%20quiero%20ordenar%20Bicarbonato." target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
         </div>
       </div>
     </div>
 
-    <!-- Miga de Pan -->
+    <!-- Miga -->
     <div class="col-12 col-sm-6 col-md-4 col-lg-3 product"
-         data-category="miga" data-name="Miga de Pan"
-         data-tags="miga pan empanizado 1lb 1/2lb 454g 227g">
+         data-category="miga" data-key="miga" data-name="Miga de Pan"
+         data-tags="miga pan empanizado 454g 227g">
       <div class="card product-card">
         <div class="img-wrap"><img src="img/miga.png" alt="Miga de Pan" loading="lazy"></div>
         <div class="card-body">
           <h5 class="card-title">Miga de Pan</h5>
-          <div class="price-list">
-            <div class="price-pill"><div class="uom">1 lb</div><div class="amount"><i class="bi bi-cash-coin"></i> 9.00</div></div>
-            <div class="price-pill"><div class="uom">½ lb</div><div class="amount"><i class="bi bi-cash-coin"></i> 6.00</div></div>
-          </div>
+          <div class="badge-public">Precio por presentación (TIENDA)</div>
+          <div class="price-list"></div>
+
+          <button class="btn btn-outline-primary btn-sm btn-wholesale mt-1" data-target="#wh-miga" aria-expanded="false">
+            <i class="bi bi-bag-check"></i> Precio mayorista
+          </button>
+          <div id="wh-miga" class="wh-container pt-2"></div>
+
           <p class="card-text">Ideal para empanizados y recetas caseras.</p>
           <a href="https://wa.me/50250138102?text=Hola%20Sabores%20S%26C,%20quiero%20ordenar%20Miga%20de%20Pan." target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
         </div>
@@ -193,17 +202,20 @@
 
     <!-- Tajín -->
     <div class="col-12 col-sm-6 col-md-4 col-lg-3 product"
-         data-category="tajin" data-name="Tajín Artesanal"
-         data-tags="tajin condimento chile limon sal 1lb 1/2lb 50g 454g 227g">
+         data-category="tajin" data-key="tajin" data-name="Tajín Artesanal"
+         data-tags="tajin condimento chile limon sal 454g 227g 50g">
       <div class="card product-card">
         <div class="img-wrap"><img src="img/tajin.png" alt="Tajín Artesanal" loading="lazy"></div>
         <div class="card-body">
           <h5 class="card-title">Tajín Artesanal</h5>
-          <div class="price-list">
-            <div class="price-pill"><div class="uom">1 lb</div><div class="amount"><i class="bi bi-cash-coin"></i> 45.00</div></div>
-            <div class="price-pill"><div class="uom">½ lb</div><div class="amount"><i class="bi bi-cash-coin"></i> 27.00</div></div>
-            <div class="price-pill"><div class="uom">50 g</div><div class="amount"><i class="bi bi-cash-coin"></i> 10.00</div></div>
-          </div>
+          <div class="badge-public">Precio por presentación (TIENDA)</div>
+          <div class="price-list"></div>
+
+          <button class="btn btn-outline-primary btn-sm btn-wholesale mt-1" data-target="#wh-tajin" aria-expanded="false">
+            <i class="bi bi-bag-check"></i> Precio mayorista
+          </button>
+          <div id="wh-tajin" class="wh-container pt-2"></div>
+
           <p class="card-text">Condimento con chile, limón y sal. 100% artesanal.</p>
           <a href="https://wa.me/50250138102?text=Hola%20Sabores%20S%26C,%20quiero%20ordenar%20Taj%C3%ADn%20Artesanal." target="_blank" class="btn btn-whatsapp"><i class="bi bi-whatsapp"></i> Pedir por WhatsApp</a>
         </div>
@@ -236,7 +248,7 @@
 <!-- ========= FIN UI ========= -->
 
 
-<!-- ========= PLANTILLA SIMPLE PARA IMPRESIÓN ========= -->
+<!-- ========= PLANTILLA PDF ========= -->
 <div id="catalogo_pdf" aria-hidden="true">
   <div class="pdf-header">
     <div class="pdf-brand">Sabores S&C</div>
@@ -245,53 +257,35 @@
   </div>
   <div class="container pb-4">
     <div class="row g-3">
-      <!-- Jamaica -->
       <div class="col-6 col-md-4 col-lg-3">
         <div class="pdf-card">
           <img class="pdf-img" src="img/jamaica.png" alt="Jamaica">
-          <div class="pdf-price">
-            <span class="pdf-pill">1 lb <span class="q">• 48.00</span></span>
-            <span class="pdf-pill">½ lb <span class="q">• 24.00</span></span>
-          </div>
+          <div class="pdf-price" data-key="jamaica"></div>
         </div>
       </div>
-      <!-- Bicarbonato -->
       <div class="col-6 col-md-4 col-lg-3">
         <div class="pdf-card">
           <img class="pdf-img" src="img/bicarbonato.png" alt="Bicarbonato">
-          <div class="pdf-price">
-            <span class="pdf-pill">1 lb <span class="q">• 14.00</span></span>
-            <span class="pdf-pill">½ lb <span class="q">• 10.00</span></span>
-            <span class="pdf-pill">50 g <span class="q">• 4.00</span></span>
-          </div>
+          <div class="pdf-price" data-key="bicarbonato"></div>
         </div>
       </div>
-      <!-- Miga -->
       <div class="col-6 col-md-4 col-lg-3">
         <div class="pdf-card">
           <img class="pdf-img" src="img/miga.png" alt="Miga de Pan">
-          <div class="pdf-price">
-            <span class="pdf-pill">1 lb <span class="q">• 9.00</span></span>
-            <span class="pdf-pill">½ lb <span class="q">• 6.00</span></span>
-          </div>
+          <div class="pdf-price" data-key="miga"></div>
         </div>
       </div>
-      <!-- Tajín -->
       <div class="col-6 col-md-4 col-lg-3">
         <div class="pdf-card">
           <img class="pdf-img" src="img/tajin.png" alt="Tajín">
-          <div class="pdf-price">
-            <span class="pdf-pill">1 lb <span class="q">• 45.00</span></span>
-            <span class="pdf-pill">½ lb <span class="q">• 27.00</span></span>
-            <span class="pdf-pill">50 g <span class="q">• 10.00</span></span>
-          </div>
+          <div class="pdf-price" data-key="tajin"></div>
         </div>
       </div>
     </div>
     <div class="text-center mt-3" style="font-size:.9rem;color:#6b5848">Contacto directo: 50138102</div>
   </div>
 </div>
-<!-- ========= FIN PLANTILLA IMPRESIÓN ========= -->
+<!-- ========= FIN PLANTILLA PDF ========= -->
 
 
 <!-- Modal visor imagen -->
@@ -312,27 +306,114 @@
   </div>
 </div>
 
-<!-- JS: Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+  /* ======= PRECIOS: usando "Precio unidad a TIENDA (Q)" ======= */
+  const PRICE_DATA = {
+    jamaica: [
+      { uom:'227 g', unit:19.50, public:19.50 },
+      { uom:'454 g', unit:36.00, public:36.00 },
+    ],
+    bicarbonato: [
+      { uom:'227 g', unit:6.50, public:6.50 },
+      { uom:'454 g', unit:9.00, public:9.00 },
+      { uom:'50 g',  unit:2.70, public:2.70 },
+    ],
+    miga: [
+      { uom:'227 g', unit:6.00, public:6.00 },
+      { uom:'454 g', unit:9.00, public:9.00 },
+    ],
+    tajin: [
+      { uom:'227 g', unit:20.50, public:20.50 },
+      { uom:'454 g', unit:35.00, public:35.00 },
+      { uom:'50 g',  unit:6.80, public:6.80 },
+    ],
+  };
+
+  const fmtQ = n => 'Q ' + new Intl.NumberFormat('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
+
+  const pricePill = (uom, price) => `
+    <div class="price-pill">
+      <div class="uom">${uom}</div>
+      <div class="amount"><i class="bi bi-cash-coin"></i> ${fmtQ(price).replace('Q ','')}</div>
+    </div>`;
+
+  const wholesalePill = (it) => {
+    const box50  = it.unit * 50 * 0.95; // -5%
+    const box100 = it.unit * 100 * 0.94; // -6%
+    return `<div class="wh-pill">
+      <div class="uom">${it.uom}</div>
+      <div class="wh-row"><span class="wh-lab">P. unidad</span><span class="wh-val">${fmtQ(it.unit).replace('Q ','')}</span></div>
+      <div class="wh-row"><span class="wh-lab">Caja 50</span><span class="wh-val">${fmtQ(box50).replace('Q ','')}</span></div>
+      <div class="wh-row"><span class="wh-lab">Caja 100</span><span class="wh-val">${fmtQ(box100).replace('Q ','')}</span></div>
+    </div>`;
+  };
+
   window.addEventListener('DOMContentLoaded', () => {
-    // Utilidades búsqueda sin acentos
+    // Fecha
+    const updated = document.getElementById('updatedAt');
+    if (updated) updated.textContent = 'Precios actualizados: ' + new Date().toLocaleDateString('es-GT');
+
+    // Rellenar precios (público = tienda) y mayorista
+    document.querySelectorAll('#productGrid .product').forEach(prod=>{
+      const key   = prod.dataset.key;
+      const list  = prod.querySelector('.price-list');
+      const whDiv = prod.querySelector('.wh-container');
+      if(!PRICE_DATA[key]) return;
+
+      list.innerHTML  = PRICE_DATA[key].map(p => pricePill(p.uom, p.public)).join('');
+      whDiv.innerHTML = `<div class="wh-grid">${PRICE_DATA[key].map(wh => wholesalePill(wh)).join('')}</div>`;
+    });
+
+    // PDF (usa público = tienda)
+    document.querySelectorAll('#catalogo_pdf .pdf-price').forEach(box=>{
+      const key = box.dataset.key;
+      if(!PRICE_DATA[key]) return;
+      box.innerHTML = PRICE_DATA[key].map(p =>
+        `<span class="pdf-pill">${p.uom} <span class="q">• ${fmtQ(p.public).replace('Q ','')}</span></span>`
+      ).join('');
+    });
+
+    // Toggle mayorista (abrir/cerrar y acordeón)
+    const buttons = document.querySelectorAll('.btn-wholesale');
+    buttons.forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const targetSel = btn.getAttribute('data-target');
+        const target    = document.querySelector(targetSel);
+        const isOpen    = target.classList.contains('open');
+
+        document.querySelectorAll('.wh-container.open').forEach(box=>{
+          box.classList.remove('open');
+          const b = document.querySelector(`.btn-wholesale[data-target="#${box.id}"]`);
+          if(b){ b.setAttribute('aria-expanded','false'); b.innerHTML = '<i class="bi bi-bag-check"></i> Precio mayorista'; }
+        });
+
+        if(!isOpen){
+          target.classList.add('open');
+          btn.setAttribute('aria-expanded','true');
+          btn.innerHTML = '<i class="bi bi-x-circle"></i> Ocultar mayorista';
+        } else {
+          btn.setAttribute('aria-expanded','false');
+          btn.innerHTML = '<i class="bi bi-bag-check"></i> Precio mayorista';
+        }
+      });
+    });
+
+    // Búsqueda y chips
     const strip = (s='')=>{ try{ return s.normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
       catch{ return s.replace(/[áàäâ]/gi,'a').replace(/[éèëê]/gi,'e').replace(/[íìïî]/gi,'i')
                     .replace(/[óòöô]/gi,'o').replace(/[úùüû]/gi,'u').replace(/ñ/gi,'n'); } };
     const slug = (s='')=> strip(s).toLowerCase().trim();
 
-    // Fecha
-    document.getElementById('updatedAt').textContent =
-      'Precios actualizados: ' + new Date().toLocaleDateString('es-GT');
-
-    // Filtros/buscador (UI)
     const input  = document.getElementById('searchInput');
     const cardsC = Array.from(document.querySelectorAll('#productGrid .product'));
     const chips  = document.querySelectorAll('.chip');
     let activeFilter = 'all';
+
     cardsC.forEach(c=>{ c.dataset.search = slug([c.dataset.name, c.dataset.tags, c.dataset.category].join(' ')); });
+
     function applyFilters(){
       const q = slug(input.value);
       cardsC.forEach(c=>{
@@ -345,6 +426,7 @@
     chips.forEach(ch=>{
       ch.addEventListener('click', ()=>{
         chips.forEach(x=>x.classList.remove('active'));
+        ch.addEventListener('blur', ()=>{}, {once:true});
         ch.classList.add('active');
         activeFilter = ch.dataset.filter;
         input.value = '';
@@ -353,7 +435,7 @@
     });
     applyFilters();
 
-    // Visor imagen
+    // Visor de imagen
     const productCards = Array.from(document.querySelectorAll('#productGrid .product .product-card'));
     const modalEl   = document.getElementById('imageModal');
     const modal     = new bootstrap.Modal(modalEl);
@@ -363,6 +445,7 @@
     const prevBtn   = document.getElementById('prevBtn');
     const nextBtn   = document.getElementById('nextBtn');
     let currentIndex = 0;
+
     function showIndex(idx){
       if(idx<0) idx = productCards.length-1;
       if(idx>=productCards.length) idx = 0;
@@ -378,15 +461,10 @@
         showIndex(idx); modal.show();
       });
     });
-    prevBtn.addEventListener('click', ()=> showIndex(currentIndex-1));
-    nextBtn.addEventListener('click', ()=> showIndex(currentIndex+1));
-    modalEl.addEventListener('keydown', (e)=>{
-      if(e.key==='ArrowLeft'){ e.preventDefault(); showIndex(currentIndex-1); }
-      if(e.key==='ArrowRight'){ e.preventDefault(); showIndex(currentIndex+1); }
-    });
-    modalEl.addEventListener('shown.bs.modal', ()=> modalEl.focus());
+    if (prevBtn) prevBtn.addEventListener('click', ()=> showIndex(currentIndex-1));
+    if (nextBtn) nextBtn.addEventListener('click', ()=> showIndex(currentIndex+1));
 
-    // Imprimir / Guardar como PDF (catálogo simple)
+    // Imprimir / Guardar como PDF
     document.getElementById('btnPrint').addEventListener('click', ()=> window.print());
   });
 </script>
